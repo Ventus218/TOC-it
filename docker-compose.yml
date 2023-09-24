@@ -1,6 +1,6 @@
 services:
-  markdown-toc:
-    build: "./markdown-toc"
+  markdown-toc-api:
+    build: "./markdown-toc-api"
     ports:
       - "8080:80"
 
@@ -9,4 +9,4 @@ services:
     ports:
       - "8081:80"
     depends_on:
-      - markdown-toc
+      - markdown-toc-api
