@@ -1,52 +1,89 @@
-<?php
-    if (!empty($_POST["md-text"])) {
-        $md_text = $_POST["md-text"];
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown TOC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid p-3">
+        <div class="row gy-3">
+            <main>
+                <div class="col-12">
+                    <h1 class="fw-bold">Markdown T<span class="fs-6 fw-normal">able</span>O<span class="fs-6 fw-normal">f</span>C<span class="fs-6 fw-normal">ontents</span></h1>
+                </div>
 
-        if(isset($_POST["max-depth"])) {
-            $max_depth = $_POST["max-depth"];
-            settype($max_depth, "int");
-        } else {
-            $max_depth = null;
-        }
+                <div class="col-12">
+                    <p class="fst-italic text-secondary">Powered by <a href="https://github.com/jonschlinkert/markdown-toc">markdown-toc</a></p>
+                </div>
+            
+                <form class="col form-floating" method="post">
+                    <div class="row align-items-center gy-3 mb-3">
+                        <div class="col-md col-12">
+                            <label class="visually-hidden" for="md-text">Markdown input</label>
+                            <textarea class="form-control" style="height: 40vh;" name="md-text" id="md-text" placeholder="# Title
 
-        $no_first_h1 = isset($_POST["no-first-h1"]) && filter_var($_POST["no-first-h1"], FILTER_VALIDATE_BOOLEAN);;
+<!-- toc -->
 
-        $host = gethostbyname(getenv("BACKEND_HOST"));
-        $port = getenv("BACKEND_PORT");
-        $url = "http://".$host.":".$port."/markdown-toc.php";
-        
-        $body = array("md-text" => $md_text, "max-depth" => $max_depth, "no-first-h1" => $no_first_h1);
-        
-        // use key 'http' even if you send the request to https://...
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/json",
-                'method'  => 'POST',
-                'content' => json_encode($body)
-                )
-            );
-        $context  = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-        $result = json_decode($result, TRUE);
+## Heading2
+foo
 
-        $server_ip = $result["server-ip"];
+### Heading3
+bar
 
-        if(!empty($result["toc"])) {
-            $toc = $result["toc"];
-        }
+## foobar" required><?php echo $md_text ?? ""; ?></textarea>
+                        </div>
+                        <div class="col-md-auto col-12">
+                            <button class="form-control btn btn-primary" type="submit">Generate</button>
+                        </div>
+                        <div class="col-md col-12">
+                            <label class="visually-hidden" for="toc">Generated markdown</label>
+                            <textarea class="form-control" style="height: 40vh;" id="toc"><?php echo $toc ?? ""; ?></textarea>
+                        </div>
+                    </div>
+                    <section>
+                        <div class="row gy-3">
+                            <div class="col-12">
+                                <h2>Options</h2>
+                            </div>
+                            <div class="col-12">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <label for="max-depth-input">Max depth</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input class="form-control" type="number" name="max-depth" id="max-depth-input" value="<?php echo $max_depth ?? 6 ?>" min="1" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <label class="form-check-label" for="no-first-h1-input">Exclude first H1</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input class="form-check-input" type="checkbox" name="no-first-h1" id="no-first-h1-input" <?php echo ($no_first_h1 ?? true) ? "checked" : ""; ?>/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p> If <code>&lt!-- toc --&gt</code> gets found in the source markdown then the toc will be generated and included automatically. <br> You can place it wherever you like! </p>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+            </main>
 
-        if(!empty($result["max-depth"])) {
-            $max_depth = $result["max-depth"];
-        }
-        
-        if(!empty($result["no-first-h1"])) {
-            $no_first_h1 = $result["no-first-h1"];
-        }
-
-        if(!empty($result["error"])) {
-            $error = $result["error"];
-        }
-    }
-
-    include("./index-template.php");
-?>
+            <footer>
+                <?php if (isset($error)): ?>
+                    <div class="col-12">
+                        <p class="text-danger my-0"> An error was encountered: <?php echo $error; ?></p>
+                    </div>
+                <?php endif; ?>
+            </footer>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="/index-build.js"></script>
+</body>
+</html>
