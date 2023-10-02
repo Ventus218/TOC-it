@@ -1,8 +1,4 @@
 services:
-  markdown-toc-api:
+  toc-it:
     volumes:
-      - ./markdown-toc-api/serve:/var/www/html:ro
-
-  markdown-toc-frontend:
-    volumes:
-      - ./markdown-toc-frontend/serve:/var/www/html:ro
+      - .:/var/www/html:ro
