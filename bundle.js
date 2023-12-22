@@ -7,15 +7,6 @@ const max_depth_input = document.getElementById("max-depth-input")
 const no_first_h1_input = document.getElementById("no-first-h1-input")
 const form = document.querySelector("form")
 
-
-// if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-//     // dark mode
-// }
-
-// window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-//     const newColorScheme = event.matches ? "dark" : "light";
-// });
-
 function generateToc() {
     const input_text = input_text_area.value.trim()
 
@@ -34,7 +25,7 @@ function outputToc(toc) {
     output_text_area.value = toc
 }
 
-submit_button = document.querySelector("button")
+submit_button = document.getElementById("generate-button")
 submit_button.addEventListener("click", (e) => {
     e.preventDefault()
     if (form.reportValidity()){

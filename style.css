@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'FA-Brands';
+    src: url('/fonts/Font Awesome 6 Brands-Regular-400.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FA-Solid';
+    src: url('/fonts/Font Awesome 6 Free-Solid-900.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FA-Regular';
+    src: url('/fonts/Font Awesome 6 Free-Regular-400.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --icon-font-size: 2em;
+}
+
+.icon-brands {
+    font-family: 'FA-Brands' !important;
+    font-size: var(--icon-font-size) !important;
+    line-height: 1 !important;
+    padding: 1px !important;
+    margin: 0px !important;
+    display: block !important;
+}
+
+.icon-solid {
+    font-family: 'FA-Solid' !important;
+    font-size: var(--icon-font-size)  !important;
+    line-height: 1 !important;
+    padding: 1px !important;
+    margin: 0px !important;
+    display: block !important;
+}
+
+.icon-regular {
+    font-family: 'FA-Regular' !important;
+    font-size: var(--icon-font-size)  !important;
+    line-height: 1 !important;
+    padding: 1px !important;
+    margin: 0px !important;
+    display: block !important;
+}
