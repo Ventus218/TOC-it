@@ -15,6 +15,7 @@ class Theme {
 const themes = [Theme.light, Theme.dark]
 if (window.matchMedia) { themes.unshift(Theme.auto) }
 
+const toggle_theme_button = document.getElementById("toggle-theme-button-auto-text")
 const theme_color_meta = document.querySelector('meta[name="theme-color"]')
 
 const fallback_theme = document.documentElement.getAttribute("data-bs-theme") ?? Theme.dark
@@ -31,14 +32,14 @@ function set_preferred_theme(theme) {
 function setTheme(theme) {
     if (theme == Theme.auto) {
         if (window.matchMedia) {
-            document.getElementById("toggle-theme-button-auto-text").classList.remove("d-none")
+            toggle_theme_button.classList.remove("d-none")
             theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? Theme.dark : Theme.light
         } else {
-            document.getElementById("toggle-theme-button-auto-text").classList.add("d-none")
+            toggle_theme_button.classList.add("d-none")
             theme = fallback_theme
         }
     } else {
-        document.getElementById("toggle-theme-button-auto-text").classList.add("d-none")
+        toggle_theme_button.classList.add("d-none")
     }
 
     document.documentElement.setAttribute("data-bs-theme", theme)
