@@ -15,6 +15,8 @@ class Theme {
 const themes = [Theme.light, Theme.dark]
 if (window.matchMedia) { themes.unshift(Theme.auto) }
 
+const theme_color_meta = document.querySelector('meta[name="theme-color"]')
+
 const fallback_theme = document.documentElement.getAttribute("data-bs-theme") ?? Theme.dark
 const default_theme = Theme.auto
 let current_theme // can only be light or dark but not auto as the auto theme is handled here in JS
@@ -38,8 +40,11 @@ function setTheme(theme) {
     } else {
         document.getElementById("toggle-theme-button-auto-text").classList.add("d-none")
     }
+
     document.documentElement.setAttribute("data-bs-theme", theme)
     current_theme = theme
+
+    theme_color_meta.setAttribute("content", theme == Theme.dark ? "rgb(43, 48, 53)" : "rgb(248, 249, 250)");
 }
 
 function cycleThemes() {
