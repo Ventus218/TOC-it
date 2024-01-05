@@ -4,6 +4,8 @@ const input_text_area = document.getElementById("md-text")
 const output_text_area = document.getElementById("toc")
 const max_depth_input = document.getElementById("max-depth-input")
 const no_first_h1_input = document.getElementById("no-first-h1-input")
+const appending_string_input = document.getElementById("appending-string-input")
+const bullets_type_input = document.getElementById("bullets-type-input")
 const form = document.querySelector("form")
 
 function generateToc() {
@@ -12,6 +14,9 @@ function generateToc() {
     const options = {}
     options.maxdepth = max_depth_input.value
     options.firsth1 = !no_first_h1_input.checked
+    options.append = "\n" + appending_string_input.value
+    if (bullets_type_input.value) { options.bullets = bullets_type_input.value } 
+
     const toc_insert_result = toc.insert(input_text, options)
     if (toc_insert_result === input_text) {
         return toc(input_text, options).content.trim()
@@ -53,23 +58,19 @@ auto_generate_toc_checkbox.addEventListener("change", (e) => {
 
 
 // ***** SETTING EVENTS IN ORDER TO AUTOMATICALLY GENERATE THE TOC *****
-input_text_area.addEventListener("input", (e) => {
-    if (auto_generate_toc_checkbox.checked && form.reportValidity()) {
-        let toc = generateToc()
-        outputToc(toc)
-    }
-})
+form_objects = [
+    input_text_area,
+    max_depth_input,
+    no_first_h1_input,
+    appending_string_input,
+    bullets_type_input
+]
 
-max_depth_input.addEventListener("input", (e) => {
-    if (auto_generate_toc_checkbox.checked && form.reportValidity()) {
-        let toc = generateToc()
-        outputToc(toc)
-    }
-})
-
-no_first_h1_input.addEventListener("input", (e) => {
-    if (auto_generate_toc_checkbox.checked && form.reportValidity()) {
-        let toc = generateToc()
-        outputToc(toc)
-    }
-})
+form_objects.forEach(o => {
+    o.addEventListener("input", (e) => {
+        if (auto_generate_toc_checkbox.checked && form.reportValidity()) {
+            let toc = generateToc()
+            outputToc(toc)
+        }
+    })
+});
