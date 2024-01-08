@@ -27,12 +27,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          path: ./_site
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Prepare build environment
-        run: ./setup.sh
+        run: ./_site/setup.sh
       - name: Build
-        run: ./build.sh
+        run: ./_site/build.sh
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
