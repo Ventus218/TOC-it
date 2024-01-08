@@ -1,25 +1,28 @@
 #!/bin/bash
 
-red=$(tput setaf 1)
-green=$(tput setaf 2)
-yellow=$(tput setaf 3)
-cyan=$(tput setaf 6)
-reset=$(tput sgr0)
+if [ -t 0 ] ; then # True if FD is opened on a terminal.
+    INTERACTIVE_MODE=true
 
-INTERACTIVE_MODE=false
+    red=$(tput setaf 1)
+    green=$(tput setaf 2)
+    yellow=$(tput setaf 3)
+    cyan=$(tput setaf 6)
+    reset=$(tput sgr0)
+else
+    INTERACTIVE_MODE=false
+fi
+
 if which "sudo" > /dev/null; then
     SUDO="sudo "
 else
     SUDO=""
 fi
 
-
 echoError() { echo -e "${red}$1${reset}" >&2; }
-echoMessage() { echo -e "${cyan}$1${reset}"; }
+echoMessage() { echo -e "${cyan}$1${reset}" >&2; }
 echoWarning() { echo -e "${yellow}$1${reset}" >&2; }
 
-
-echoMessage "\nThis script is going to prepare the development environment for TOC-it"
+echoMessage "This script is going to prepare the development environment for TOC-it"
 
 # ****** DEPENDENCIES INSTALL ******
 
@@ -34,7 +37,7 @@ done
 
 if [ -n "$DEPENDENCIES_TO_INSTALL" ]; then
     echoMessage "The following dependencies need to be installed:"
-    for DEP in ${DEPENDENCIES_TO_INSTALL}; do echo -e "${yellow}\t* ${DEP}${reset}"; done
+    for DEP in ${DEPENDENCIES_TO_INSTALL}; do echoMessage "\t* ${DEP}"; done
 
     if [ "${OSTYPE}" != "linux-gnu" ]; then
         echoWarning "Automatic dependency install in only available on gnu-linux systems."
@@ -84,7 +87,7 @@ if [ -n "$DEPENDENCIES_TO_INSTALL" ]; then
                 ;;
         esac
         if [[ $? != 0 ]]; then echoError "Something went wrong installing ${DEP}. Aborting..."; exit 1; fi
-        echo
+        echoMessage 
     done
 fi
 
