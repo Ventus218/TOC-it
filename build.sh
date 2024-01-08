@@ -31,15 +31,15 @@ if ! which browserify > /dev/null; then
     exit 1
 fi
 
-browserify "${SCRIPT_DIR}/index.js" -o "${SCRIPT_DIR}/bundle.js"
+browserify "index.js" -o "bundle.js"
 
 if ! which uglifyjs > /dev/null; then
     echoError "Uglifyjs is missing, have you run the setup script (\"./setup.sh\") for installing TOC-it dependencies?"
     exit 1
 fi
 
-uglifyjs --compress --mangle -- "${SCRIPT_DIR}/bundle.js" > "${SCRIPT_DIR}/bundle.min.js"
-rm "${SCRIPT_DIR}/bundle.js"
+uglifyjs --compress --mangle -- "bundle.js" > "bundle.min.js"
+rm "bundle.js"
 
 echoMessage "Done!"
 exit 0
