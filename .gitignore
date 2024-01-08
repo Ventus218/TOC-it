@@ -3,3 +3,5 @@
 
 # Node dependencies folder
 node_modules
+
+bundle.min.js
