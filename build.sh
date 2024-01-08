@@ -17,6 +17,14 @@ echoMessage() { echo -e "${cyan}$1${reset}" >&2; }
 echoWarning() { echo -e "${yellow}$1${reset}" >&2; }
 
 SCRIPT_DIR="$(dirname "$0")"
+cd "${SCRIPT_DIR}"
+
+if ! which npm > /dev/null; then
+    echoError "npm is missing, have you run the setup script (\"./setup.sh\") for installing TOC-it dependencies?"
+    exit 1
+fi
+
+npm install
 
 if ! which browserify > /dev/null; then
     echoError "Browserify is missing, have you run the setup script (\"./setup.sh\") for installing TOC-it dependencies?"
