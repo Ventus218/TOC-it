@@ -74,8 +74,8 @@ if [ -n "$DEPENDENCIES_TO_INSTALL" ]; then
                 which browserify > /dev/null
                 ;;
             "uglifyjs")
-                echoMessage "Running \"npm install -g uglifyjs\""
-                npm install -g uglifyjs
+                echoMessage "Running \"npm install -g uglify-js\""
+                npm install -g uglify-js
                 which uglifyjs > /dev/null
                 ;;
             *)
