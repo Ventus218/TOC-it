@@ -38,9 +38,9 @@ jobs:
       - name: Remove unnecessary files
         working-directory: _site
         run: |
-          rm -rf node_modules \
-          rm *.sh \
-          rm package*.json \
+          rm -rf node_modules
+          rm *.sh
+          rm package*.json
           rm Dockerfile
           rm docker-compose*.yml
       - name: Upload artifact
