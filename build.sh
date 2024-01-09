@@ -24,22 +24,35 @@ if ! which npm > /dev/null; then
     exit 1
 fi
 
-npm install
+if ! npm install; then
+    echoError "Something went wrong while installing dependencies through npm install"
+    exit 1
+fi
 
 if ! which browserify > /dev/null; then
     echoError "Browserify is missing, have you run the setup script (\"./setup.sh\") for installing TOC-it dependencies?"
     exit 1
 fi
 
-browserify "index.js" -o "bundle.js"
+if ! browserify "index.js" -o "bundle.js"; then
+    echoError "Something went wrong while browserifying the index.js file"
+    exit 1
+fi
 
 if ! which uglifyjs > /dev/null; then
     echoError "Uglifyjs is missing, have you run the setup script (\"./setup.sh\") for installing TOC-it dependencies?"
     exit 1
 fi
 
-uglifyjs --compress --mangle -- "bundle.js" > "bundle.min.js"
-rm "bundle.js"
+if ! uglifyjs --compress --mangle -- "bundle.js" > "bundle.min.js"; then
+    echoError "Something went wrong while uglifying the bundle.js file"
+    exit 1
+fi
+
+if ! rm "bundle.js"; then
+    echoWarning "Unable to remove temporary file bundle.js."
+    echoWarning "This may not be a big problem, so the script will continue"
+fi
 
 echoMessage "Done!"
 exit 0
