@@ -35,6 +35,14 @@ jobs:
         run: ./_site/setup.sh
       - name: Build
         run: ./_site/build.sh
+      - name: Remove unnecessary files
+        working-directory: _site
+        run: |
+          rm -rf node_modules \
+          rm *.sh \
+          rm package*.json \
+          rm Dockerfile
+          rm docker-compose*.yml
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
