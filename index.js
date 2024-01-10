@@ -14,7 +14,7 @@ function generateToc() {
     const options = {}
     options.maxdepth = max_depth_input.value
     options.firsth1 = !no_first_h1_input.checked
-    options.append = "\n" + appending_string_input.value
+    if (appending_string_input.value) { options.append = "\n" + appending_string_input.value }
     if (bullets_type_input.value) { options.bullets = bullets_type_input.value } 
 
     const toc_insert_result = toc.insert(input_text, options)
