@@ -23,9 +23,9 @@ The input Markdown should be placed in the left side textarea. The TOC will then
 
 To generate the TOC and insert it automatically in a specific location of  your document just add `<!-- toc -->` wherever you prefer.
 
-### Options
-
 ![Usage example](./doc/gifs/example_main.gif)
+
+### Options
 
 | Option | Description | Default |
 |--------|-------------|---------|
