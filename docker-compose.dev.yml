@@ -1,4 +1,0 @@
-services:
-  toc-it:
-    volumes:
-      - .:/var/www/html:ro

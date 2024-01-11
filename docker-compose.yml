@@ -1,5 +1,0 @@
-services:
-  toc-it:
-    build: "./"
-    ports:
-      - "8081:80"

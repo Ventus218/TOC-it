@@ -41,8 +41,6 @@ jobs:
           rm -rf node_modules
           rm *.sh
           rm package*.json
-          rm Dockerfile
-          rm docker-compose*.yml
           rm .gitignore
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
