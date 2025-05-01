@@ -73,6 +73,9 @@ Now that everything is set up you can start making your changes.
 
 Remember that every time you modify the *index.js* file (which contains markdown-toc and therefore needs to be bundled up by browserify) you must run again the `build.sh` script in order to apply them.
 
+### Logo
+The logo files should be generated using [favicon.io](https://favicon.io/favicon-converter/).
+
 ### GitHub Actions
 
 #### Automated deployment
